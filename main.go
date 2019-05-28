@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"os"
 )
+
+var db *gorm.DB
 
 func main() {
 	// Setup configuration file
@@ -24,8 +27,12 @@ func main() {
 		log.Fatalf("Failed to read configuration file: %s", err)
 	}
 
+	// Setup the database
+	db = setupDatabase()
+
 	// Setup handlers & routes
 	router := mux.NewRouter()
+	
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
