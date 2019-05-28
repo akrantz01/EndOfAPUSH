@@ -17,3 +17,6 @@ vendor/
 # IDEs
 .idea/
 .vscode/
+
+# Sensitive files
+config.yaml

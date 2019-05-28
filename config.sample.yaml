@@ -1,0 +1,9 @@
+# Main server configuration
+server:
+  # What address to listen on
+  # Use 0.0.0.0 for all interfaces
+  # Default: 127.0.0.1
+  host: 127.0.0.1
+  # What port to listen on
+  # Default: 8080
+  port: 8080
