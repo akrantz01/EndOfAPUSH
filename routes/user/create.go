@@ -9,12 +9,6 @@ import (
 	"net/http"
 )
 
-type createBody struct {
-	Name string
-	Username string
-	Password string
-}
-
 func Create(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Validate initial request on Content-Type header and body
@@ -27,7 +21,11 @@ func Create(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Validate JSON body
-		var body createBody
+		var body struct{
+			Name     string
+			Username string
+			Password string
+		}
 		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 			util.Responses.Error(w, http.StatusBadRequest, "unable to decode JSON: " + err.Error())
 			return
