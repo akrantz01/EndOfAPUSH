@@ -18,7 +18,7 @@ func SetupDatabase() *gorm.DB {
 	log.Print("Successfully connected to database")
 
 	log.Print("Building database schema...")
-	for _, model := range []interface{}{&User{}, &Message{}} {
+	for _, model := range []interface{}{&User{}, &Message{}, &Token{}} {
 		if !db.HasTable(model) {
 			db.CreateTable(model)
 		}
