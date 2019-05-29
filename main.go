@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/akrantz01/EndOfAPUSH/database"
 	"github.com/akrantz01/EndOfAPUSH/routes/auth"
+	"github.com/akrantz01/EndOfAPUSH/routes/messages"
 	"github.com/akrantz01/EndOfAPUSH/routes/user"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -50,6 +51,8 @@ func main() {
 	// Authentication routes
 	router.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
 	router.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
+	// Message routes
+	router.HandleFunc("/messages", messages.Create(db)).Methods("POST")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
