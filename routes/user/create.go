@@ -13,7 +13,7 @@ func Create(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Validate initial request on Content-Type header and body
 		if r.Header.Get("Content-Type") != "application/json" {
-			util.Responses.Error(w, http.StatusBadRequest, "content must be JSON")
+			util.Responses.Error(w, http.StatusBadRequest, "header 'Content-Type' must be 'application/json'")
 			return
 		} else if r.Body == nil {
 			util.Responses.Error(w, http.StatusBadRequest, "body must exist")

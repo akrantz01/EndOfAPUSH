@@ -44,6 +44,7 @@ func main() {
 	// User routes
 	router.HandleFunc("/users", user.Create(db)).Methods("POST")
 	router.HandleFunc("/users/{username}", user.Delete(db)).Methods("DELETE")
+	router.HandleFunc("/users/{username}", user.Update(db)).Methods("PUT")
 	router.HandleFunc("/users/search", user.Search(db)).Methods("GET")
 	// Authentication routes
 	router.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
