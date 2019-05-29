@@ -44,6 +44,7 @@ func main() {
 	router.HandleFunc("/users/{username}", routes.Delete(db)).Methods("DELETE")
 	router.HandleFunc("/users/search", routes.Search(db)).Methods("GET")
 	router.HandleFunc("/users/login", routes.Login(db)).Methods("POST")
+	router.HandleFunc("/users/logout", routes.Logout(db)).Methods("GET")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
