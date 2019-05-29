@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/akrantz01/EndOfAPUSH/database"
-	"github.com/akrantz01/EndOfAPUSH/routes"
+	"github.com/akrantz01/EndOfAPUSH/routes/auth"
+	"github.com/akrantz01/EndOfAPUSH/routes/user"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -40,11 +41,13 @@ func main() {
 
 	// Setup handlers & routes
 	router := mux.NewRouter()
-	router.HandleFunc("/users", routes.Create(db)).Methods("POST")
-	router.HandleFunc("/users/{username}", routes.Delete(db)).Methods("DELETE")
-	router.HandleFunc("/users/search", routes.Search(db)).Methods("GET")
-	router.HandleFunc("/users/login", routes.Login(db)).Methods("POST")
-	router.HandleFunc("/users/logout", routes.Logout(db)).Methods("GET")
+	// User routes
+	router.HandleFunc("/users", user.Create(db)).Methods("POST")
+	router.HandleFunc("/users/{username}", user.Delete(db)).Methods("DELETE")
+	router.HandleFunc("/users/search", user.Search(db)).Methods("GET")
+	// Authentication routes
+	router.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
+	router.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server

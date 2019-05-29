@@ -1,4 +1,4 @@
-package routes
+package auth
 
 import (
 	"github.com/akrantz01/EndOfAPUSH/database"
