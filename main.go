@@ -42,19 +42,25 @@ func main() {
 
 	// Setup handlers & routes
 	router := mux.NewRouter()
+
+	// API sub-router
+	api := router.PathPrefix("/api").Subrouter()
 	// User routes
-	router.HandleFunc("/users", user.Create(db)).Methods("POST")
-	router.HandleFunc("/users/{username}", user.Delete(db)).Methods("DELETE")
-	router.HandleFunc("/users/{username}", user.Update(db)).Methods("PUT")
-	router.HandleFunc("/users/{username}", user.Read(db)).Methods("GET")
-	router.HandleFunc("/users/search", user.Search(db)).Methods("GET")
+	api.HandleFunc("/users", user.Create(db)).Methods("POST")
+	api.HandleFunc("/users/{username}", user.Delete(db)).Methods("DELETE")
+	api.HandleFunc("/users/{username}", user.Update(db)).Methods("PUT")
+	api.HandleFunc("/users/{username}", user.Read(db)).Methods("GET")
+	api.HandleFunc("/users/search", user.Search(db)).Methods("GET")
 	// Authentication routes
-	router.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
-	router.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
+	api.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
+	api.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
 	// Message routes
-	router.HandleFunc("/messages", messages.Create(db)).Methods("POST")
-	router.HandleFunc("/messages", messages.List(db)).Methods("GET")
-	router.HandleFunc("/messages/{id}", messages.Read(db)).Methods("GET")
+	api.HandleFunc("/messages", messages.Create(db)).Methods("POST")
+	api.HandleFunc("/messages", messages.List(db)).Methods("GET")
+	api.HandleFunc("/messages/{id}", messages.Read(db)).Methods("GET")
+
+	// View route
+	router.Handle("/", http.FileServer(http.Dir("./public")))
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
