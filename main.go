@@ -41,6 +41,7 @@ func main() {
 	// Setup handlers & routes
 	router := mux.NewRouter()
 	router.HandleFunc("/users", routes.Create(db)).Methods("POST")
+	router.HandleFunc("/users/{username}", routes.Delete(db)).Methods("DELETE")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
