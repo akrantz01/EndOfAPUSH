@@ -27,3 +27,6 @@ database:
   # Database to write tables to
   # Default: postgres
   database: postgres
+  # Delete the tables if they already exist
+  # Default: false
+  wipe: false

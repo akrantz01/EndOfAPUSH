@@ -19,7 +19,10 @@ func SetupDatabase() *gorm.DB {
 
 	log.Print("Building database schema...")
 	for _, model := range []interface{}{&User{}, &Message{}, &Token{}} {
-		if !db.HasTable(model) {
+		if viper.GetBool("database.wipe") {
+			db.DropTableIfExists(model)
+			db.CreateTable(model)
+		} else if !db.HasTable(model) {
 			db.CreateTable(model)
 		}
 	}

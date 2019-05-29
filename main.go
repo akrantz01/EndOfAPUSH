@@ -31,6 +31,7 @@ func main() {
 	viper.SetDefault("database.username", "postgres")
 	viper.SetDefault("database.password", "postgres")
 	viper.SetDefault("database.database", "postgres")
+	viper.SetDefault("database.wipe", true)
 
 	// Read configuration
 	if err := viper.ReadInConfig(); err != nil {
