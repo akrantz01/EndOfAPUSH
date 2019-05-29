@@ -8,6 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// Check that a JWT is valid
 func ValidateJWT(tokenString string, db *gorm.DB) (*jwt.Token, error) {
 	// Retrieve token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (i interface{}, e error) {
@@ -42,4 +43,23 @@ func ValidateJWT(tokenString string, db *gorm.DB) (*jwt.Token, error) {
 	}
 
 	return token, nil
+}
+
+// Check that specified user and user from JWT are the same
+func CheckJWTUsers(token *jwt.Token, user database.User, db *gorm.DB) (bool, error) {
+	// Retrieve token claims
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return false, fmt.Errorf("invalid claims format")
+	}
+
+	// Retrieve user specified in token
+	var tokenUser database.User
+	db.Where("id = ?", claims["sub"]).First(&tokenUser)
+	if tokenUser.ID == 0 {
+		return false, fmt.Errorf("no user exists at id: %s", claims["sub"])
+	}
+
+	// Check that specified user and token match
+	return tokenUser.ID == user.ID, nil
 }
