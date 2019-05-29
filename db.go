@@ -43,6 +43,7 @@ func setupDatabase() *gorm.DB {
 			db.CreateTable(model)
 		}
 	}
+	log.Print("Successfully built database schema")
 
 	return db
 }
