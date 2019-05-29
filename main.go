@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/akrantz01/EndOfAPUSH/database"
+	"github.com/akrantz01/EndOfAPUSH/routes"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
@@ -34,10 +36,11 @@ func main() {
 	}
 
 	// Setup the database
-	db = setupDatabase()
+	db = database.SetupDatabase()
 
 	// Setup handlers & routes
 	router := mux.NewRouter()
+	router.HandleFunc("/users", routes.Create(db)).Methods("POST")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server

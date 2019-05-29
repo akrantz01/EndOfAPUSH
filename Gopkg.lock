@@ -145,9 +145,27 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:668e8c66b8895d69391429b0f64a72c35603c94f364c94d4e5fab5053d57a0b6"
+  digest = "1:623b46deaa755036d5774a5e4815fd79fe59480ccdc34c0ae68c3bc1996ba679"
+  name = "golang.org/x/crypto"
+  packages = [
+    "argon2",
+    "bcrypt",
+    "blake2b",
+    "blowfish",
+    "pbkdf2",
+    "scrypt",
+  ]
+  pruneopts = "UT"
+  revision = "22d7a77e9e5f409e934ed268692e56707cd169e5"
+
+[[projects]]
+  branch = "master"
+  digest = "1:079999f5a3a0db923759948975e14ec0cee7195b9d99c566139307d971e7fc3c"
   name = "golang.org/x/sys"
-  packages = ["unix"]
+  packages = [
+    "cpu",
+    "unix",
+  ]
   pruneopts = "UT"
   revision = "3626398d77499f570be2e36a6ad4fc91963a02c5"
 
@@ -167,6 +185,43 @@
   version = "v0.3.2"
 
 [[projects]]
+  digest = "1:174d05aec0155083f9b461f21a0a5c94f396c3cdb44f62445009ca05eef1372b"
+  name = "gopkg.in/hlandau/easymetric.v1"
+  packages = ["cexp"]
+  pruneopts = "UT"
+  revision = "1c173222e345c2ba115e0f483821c6da2d3b0fa9"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:7bd63ad360d64ba912bee8cbcafe8ffe63e7cb800c8d49d76ed709f2bb8ba103"
+  name = "gopkg.in/hlandau/measurable.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d96a009bd9bda94dd1294105e67e8c1794e533d3"
+  version = "v1.0.1"
+
+[[projects]]
+  digest = "1:9c618e8bff87568bfe399798d38e3fb9823ba51eedc9163102efde0e5307d3e7"
+  name = "gopkg.in/hlandau/passlib.v1"
+  packages = [
+    ".",
+    "abstract",
+    "hash/argon2",
+    "hash/argon2/raw",
+    "hash/bcrypt",
+    "hash/bcryptsha256",
+    "hash/pbkdf2",
+    "hash/pbkdf2/raw",
+    "hash/scrypt",
+    "hash/scrypt/raw",
+    "hash/sha2crypt",
+    "hash/sha2crypt/raw",
+  ]
+  pruneopts = "UT"
+  revision = "b833d45cabf4a5151d9f955811216c6e7e377537"
+  version = "v1.0.10"
+
+[[projects]]
   digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -183,6 +238,7 @@
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/postgres",
     "github.com/spf13/viper",
+    "gopkg.in/hlandau/passlib.v1",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
