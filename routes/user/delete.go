@@ -3,6 +3,7 @@ package user
 import (
 	"github.com/akrantz01/EndOfAPUSH/database"
 	"github.com/akrantz01/EndOfAPUSH/util"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -20,13 +21,39 @@ func Delete(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// TODO: validate user authentication token
+		// Verify JWT from headers
+		token, err := util.ValidateJWT(r.Header.Get("Authorization"), db)
+		if err != nil {
+			util.Responses.Error(w, http.StatusUnauthorized, "invalid token: " + err.Error())
+			return
+		}
 
 		// Check if user exists
 		var user database.User
 		db.Where("username = ?", path["username"]).First(&user)
 		if user.ID == 0 {
 			util.Responses.Error(w, http.StatusBadRequest, "user with specified username does not exist")
+			return
+		}
+
+		// Retrieve token claims
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			util.Responses.Error(w, http.StatusInternalServerError, "invalid claims format")
+			return
+		}
+
+		// Retrieve user specified in token
+		var tokenUser database.User
+		db.Where("id = ?", claims["sub"]).First(&tokenUser)
+		if tokenUser.ID == 0 {
+			util.Responses.Error(w, http.StatusUnauthorized, "no user exists at id: " + claims["sub"].(string))
+			return
+		}
+
+		// Check that specified user and token match
+		if tokenUser.ID != user.ID {
+			util.Responses.Error(w, http.StatusUnauthorized, "specified user and token do not match")
 			return
 		}
 

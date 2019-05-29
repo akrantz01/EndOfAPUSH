@@ -22,7 +22,12 @@ func Search(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// TODO: validate user authentication token
+		// Verify JWT from headers
+		_, err := util.ValidateJWT(r.Header.Get("Authorization"), db)
+		if err != nil {
+			util.Responses.Error(w, http.StatusUnauthorized, "invalid token: " + err.Error())
+			return
+		}
 
 		// Find all users like given username
 		var users []database.User
