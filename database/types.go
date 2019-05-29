@@ -19,9 +19,7 @@ type Message struct {
 	Message   string
 	Algorithm uint
 	ToID      uint
-	To        User
 	FromID    uint
-	From      User
 }
 
 // Stores a user authentication token in a PostgreSQL table

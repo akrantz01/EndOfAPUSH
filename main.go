@@ -53,6 +53,7 @@ func main() {
 	router.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
 	// Message routes
 	router.HandleFunc("/messages", messages.Create(db)).Methods("POST")
+	router.HandleFunc("/messages/{id}", messages.Read(db)).Methods("GET")
 	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
 
 	// Start the server
