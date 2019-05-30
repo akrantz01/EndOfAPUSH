@@ -6,8 +6,7 @@ import toastr from 'toastr';
 
 import Home from './Home';
 import Messages from './Messages';
-
-const LEARN = () => <h2>Learn</h2>;
+import Learn from './Learn';
 
 class App extends React.Component {
     constructor(props) {
@@ -136,7 +135,7 @@ class App extends React.Component {
 
                 <BrowserRouter>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/learn" component={LEARN}/>
+                    <Route path="/learn" component={Learn}/>
                     <Route path="/messages" component={Messages}/>
                 </BrowserRouter>
             </>
