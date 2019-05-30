@@ -4,7 +4,8 @@ import {Alignment, AnchorButton, Button, Classes, Dialog, FormGroup, InputGroup,
 import { Route, BrowserRouter } from "react-router-dom";
 import toastr from 'toastr';
 
-const HOME = () => <h2>Home</h2>;
+import Home from './Home';
+
 const LEARN = () => <h2>Learn</h2>;
 const MESSAGES = () => <h2>Messages</h2>;
 
@@ -134,7 +135,7 @@ class App extends React.Component {
                 </Dialog>
 
                 <BrowserRouter>
-                    <Route exact path="/" component={HOME}/>
+                    <Route exact path="/" component={Home}/>
                     <Route path="/learn" component={LEARN}/>
                     <Route path="/messages" component={MESSAGES}/>
                 </BrowserRouter>
