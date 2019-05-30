@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
@@ -41,6 +42,9 @@ func main() {
 	// Setup the database
 	db = database.SetupDatabase()
 
+	// Setup permissive CORS policy
+	c := cors.AllowAll()
+
 	// Setup handlers & routes
 	router := mux.NewRouter()
 
@@ -62,7 +66,7 @@ func main() {
 
 	// View route
 	router.Handle("/", http.FileServer(http.Dir("./public")))
-	http.Handle("/", handlers.LoggingHandler(os.Stdout, router))
+	http.Handle("/", handlers.LoggingHandler(os.Stdout, c.Handler(router)))
 
 	// Start the server
 	log.Printf("Listening on %s:%s...", viper.GetString("server.host"), viper.GetString("server.port"))
