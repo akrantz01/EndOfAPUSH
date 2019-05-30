@@ -46,7 +46,7 @@ class Home extends React.Component {
 
                     <br/><br/>
 
-                    <p style={{fontSize: "16px"}}>If for whatever reason you are curious as to how this was made, click <a href="https://github.com/akrantz01/EndOfAPUSH" target="_blank">here</a> to view the GitHub repository.</p>
+                    <p style={{fontSize: "16px"}}>If for whatever reason you are curious as to how this was made, click <a href="https://github.com/akrantz01/EndOfAPUSH" rel="noopener noreferrer" target="_blank">here</a> to view the GitHub repository.</p>
                 </Card>
             </>
         )
