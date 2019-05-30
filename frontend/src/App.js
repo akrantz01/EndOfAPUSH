@@ -1,7 +1,7 @@
 import React from 'react';
 import {Authentication, Users} from './api';
 import {Alignment, AnchorButton, Button, Classes, Dialog, FormGroup, InputGroup, Navbar} from "@blueprintjs/core";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, HashRouter } from "react-router-dom";
 import toastr from 'toastr';
 
 import Home from './Home';
@@ -83,9 +83,9 @@ class App extends React.Component {
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Encrypted Messenger</Navbar.Heading>
                         <Navbar.Divider/>
-                        <AnchorButton icon="home" text="Home" className={Classes.MINIMAL} href="/"/>
-                        <AnchorButton icon="git-repo" text="Learn" className={Classes.MINIMAL} href="/learn"/>
-                        <AnchorButton icon="comment" text="Messages" className={Classes.MINIMAL} href="/messages"/>
+                        <AnchorButton icon="home" text="Home" className={Classes.MINIMAL} href="#/"/>
+                        <AnchorButton icon="git-repo" text="Learn" className={Classes.MINIMAL} href="#/learn"/>
+                        <AnchorButton icon="comment" text="Messages" className={Classes.MINIMAL} href="#/messages"/>
                     </Navbar.Group>
 
                     <Navbar.Group align={Alignment.RIGHT}>
@@ -133,11 +133,11 @@ class App extends React.Component {
                     </div>
                 </Dialog>
 
-                <BrowserRouter>
+                <HashRouter>
                     <Route exact path="/" component={Home}/>
                     <Route path="/learn" component={Learn}/>
                     <Route path="/messages" component={Messages}/>
-                </BrowserRouter>
+                </HashRouter>
             </>
         );
     }
