@@ -71,7 +71,7 @@ func List(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 			j["subject"] = msg.Subject
 			j["from"] = to.Name
 
-			out = append(in, j)
+			out = append(out, j)
 		}
 
 		// Respond with different data based on query parameters
