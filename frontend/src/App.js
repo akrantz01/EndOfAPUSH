@@ -1,7 +1,12 @@
 import React from 'react';
 import {Authentication, Users} from './api';
-import {Alignment, Button, Classes, Dialog, FormGroup, InputGroup, Navbar} from "@blueprintjs/core";
+import {Alignment, AnchorButton, Button, Classes, Dialog, FormGroup, InputGroup, Navbar} from "@blueprintjs/core";
+import { Route, BrowserRouter } from "react-router-dom";
 import toastr from 'toastr';
+
+const HOME = () => <h2>Home</h2>;
+const LEARN = () => <h2>Learn</h2>;
+const MESSAGES = () => <h2>Messages</h2>;
 
 class App extends React.Component {
     constructor(props) {
@@ -78,9 +83,9 @@ class App extends React.Component {
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Encrypted Messenger</Navbar.Heading>
                         <Navbar.Divider/>
-                        <Button icon="home" text="Home" className={Classes.MINIMAL}/>
-                        <Button icon="git-repo" text="Learn" className={Classes.MINIMAL}/>
-                        <Button icon="comment" text="Messages" className={Classes.MINIMAL}/>
+                        <AnchorButton icon="home" text="Home" className={Classes.MINIMAL} href="/"/>
+                        <AnchorButton icon="git-repo" text="Learn" className={Classes.MINIMAL} href="/learn"/>
+                        <AnchorButton icon="comment" text="Messages" className={Classes.MINIMAL} href="/messages"/>
                     </Navbar.Group>
 
                     <Navbar.Group align={Alignment.RIGHT}>
@@ -127,6 +132,12 @@ class App extends React.Component {
                         </div>
                     </div>
                 </Dialog>
+
+                <BrowserRouter>
+                    <Route exact path="/" component={HOME}/>
+                    <Route path="/learn" component={LEARN}/>
+                    <Route path="/messages" component={MESSAGES}/>
+                </BrowserRouter>
             </>
         );
     }
