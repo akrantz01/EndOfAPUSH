@@ -38,6 +38,8 @@ class Messages extends React.Component {
     }
 
     refresh() {
+        if (!this.isAuthenticated()) return;
+
         ApiMessages.List("in", localStorage.getItem("token")).then(res => {
             this.setState({messages: res.data});
             for (let msg in res.data) {
