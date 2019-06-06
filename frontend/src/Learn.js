@@ -121,7 +121,7 @@ class Learn extends React.Component {
                         As such, work is currently being done into post-quantum cryptography.
                         These algorithms are intended to be unbreakable by quantum computers.
                         The currently proposed algorithms that are being tested all use different styles, such as lattice-based cryptography, learning with errors, and many others.
-                        The proposed algorithms are <a href="https://www.microsoft.com/en-us/research/project/frodokem/" target="_blank">FrodoKEM</a>, <a href="https://www.microsoft.com/en-us/research/project/sike/" target="_blank">SIKE</a>, <a href="https://www.microsoft.com/en-us/research/project/picnic/" target="_blank">Picnic</a>, and <a href="https://www.microsoft.com/en-us/research/project/qtesla/" target="_blank">qTESLA</a>.
+                        The proposed algorithms are <a href="https://www.microsoft.com/en-us/research/project/frodokem/" target="_blank" rel="noopener noreferrer">FrodoKEM</a>, <a href="https://www.microsoft.com/en-us/research/project/sike/" target="_blank" rel="noopener noreferrer">SIKE</a>, <a href="https://www.microsoft.com/en-us/research/project/picnic/" target="_blank" rel="noopener noreferrer">Picnic</a>, and <a href="https://www.microsoft.com/en-us/research/project/qtesla/" target="_blank" rel="noopener noreferrer">qTESLA</a>.
                     </p>
                 </Card>
             </>
