@@ -52,10 +52,10 @@ func main() {
 	api := router.PathPrefix("/api").Subrouter()
 	// User routes
 	api.HandleFunc("/users", user.Create(db)).Methods("POST")
+	api.HandleFunc("/users/search", user.Search(db)).Methods("GET")
 	api.HandleFunc("/users/{username}", user.Delete(db)).Methods("DELETE")
 	api.HandleFunc("/users/{username}", user.Update(db)).Methods("PUT")
 	api.HandleFunc("/users/{username}", user.Read(db)).Methods("GET")
-	api.HandleFunc("/users/search", user.Search(db)).Methods("GET")
 	// Authentication routes
 	api.HandleFunc("/auth/login", auth.Login(db)).Methods("POST")
 	api.HandleFunc("/auth/logout", auth.Logout(db)).Methods("GET")
