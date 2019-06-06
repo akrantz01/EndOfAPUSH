@@ -138,10 +138,9 @@ class Messages extends React.Component {
                 <Dialog icon="document-share" title="Compose" isOpen={this.state.composeIsOpen} onClose={this.toggleComposeDialog.bind(this)}>
                     <div className={Classes.DIALOG_BODY}>
                         <FormGroup label="To" labelFor="compose-to">
-
-                            <Suggest id="compose-to" items={this.state.recipients} inputValueRenderer={this.personValueRenderer} itemRenderer={this.personRenderer} itemsEqual={this.personIsEqual}
-                                     popoverProps={{ minimal: true }} noResults={<MenuItem disabled={true} text="No results." />} onItemSelect={this.onPersonSelect}
-                                     itemPredicate={this.personPredicate} onQueryChange={this.updatePeople.bind(this)}/>
+                            <Suggest id="compose-to" items={this.state.recipients} inputValueRenderer={this.personValueRenderer} itemRenderer={this.personRenderer}
+                                     itemsEqual={this.personIsEqual} popoverProps={{ minimal: true }} noResults={<MenuItem disabled={true} text="No results." />}
+                                     onItemSelect={this.onPersonSelect} itemPredicate={this.personPredicate} onQueryChange={this.updatePeople.bind(this)}/>
                         </FormGroup>
                         <FormGroup label="Subject" labelFor="compose-subject">
                             <InputGroup id="compose-subject" placeholder="Hi" value={this.state.composeData.subject} onChange={this.updateComposeData.bind(this)}/>
