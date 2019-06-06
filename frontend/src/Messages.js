@@ -66,7 +66,7 @@ class Messages extends React.Component {
 
     isAuthenticated = () => localStorage.getItem("token") !== null;
 
-    toggleComposeDialog = () => this.setState({composeIsOpen: !this.state.composeIsOpen});
+    toggleComposeDialog = () => this.setState({composeIsOpen: !this.state.composeIsOpen && this.isAuthenticated()});
     updateComposeData = (e) => this.setState({composeData: {to: (e.target.id === "compose-to") ? e.target.value : this.state.composeData.to, subject: (e.target.id === "compose-subject") ? e.target.value : this.state.composeData.subject, message: (e.target.id === "compose-message") ? e.target.value : this.state.composeData.message, algorithm: (e.target.id.substring(0, 12) === "compose-algo") ? parseInt(e.target.value) : this.state.composeData.algorithm}});
 
     compose() {
