@@ -15,3 +15,22 @@ You can use either JSON or YAML as the configuration language. Example for [YAML
 | database.password | Password that authenticates the user     | postgres  |
 | database.database | Database to connect to                   | postgres  |
 | database.wipe     | Clear the database before each run       | false     |
+
+## API
+There are 7 different distinct routes each with at least 1 REST method to accept it. Some also have query or path parameters to go with them. All routes are prefixed with the path `/api` unless otherwise specified.
+
+#### Users
+POST `/users` - create a new user<br/>
+GET `/users/search` - fuzzy search for other users<br/>
+GET `/users/{username}` - retrieve your user information<br/>
+PUT `/users/{username}` - update your user information<br/>
+DELETE `/users/{username}` - delete your own account<br/>
+
+#### Authentication
+POST `/auth/login` - generate a new authentication token for the rest of the API<br/>
+GET `/auth/logout` - revoke the current authentication token, effectively logging the user out<br/>
+
+#### Messaging
+POST `/messages` - send a new message to another user<br/>
+GET `/messages` - get a list of all messages sent to you<br/>
+GET `/messages/{id}` - get a specific message information<br/>
