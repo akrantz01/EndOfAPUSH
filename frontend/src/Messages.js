@@ -1,5 +1,5 @@
 import React from 'react';
-import {Messages as ApiMessages} from './api';
+import {Messages as ApiMessages, Users} from './api';
 import {
     Button,
     ButtonGroup,
@@ -11,11 +11,13 @@ import {
     FormGroup,
     H1,
     H3,
-    InputGroup, Radio, RadioGroup, TextArea
+    InputGroup, MenuItem, Radio, RadioGroup, TextArea
 } from "@blueprintjs/core";
+import {Suggest} from "@blueprintjs/select";
 import toastr from 'toastr';
 
 import MessageItem from './MessageItem';
+import highlightText from './util';
 
 class Messages extends React.Component {
     constructor(props) {
@@ -23,6 +25,7 @@ class Messages extends React.Component {
 
         this.state = {
             messages: [],
+            recipients: [],
             composeIsOpen: false,
             composeIsProcessing: false,
             composeData: {
@@ -65,6 +68,18 @@ class Messages extends React.Component {
     }
 
     isAuthenticated = () => localStorage.getItem("token") !== null;
+
+    personValueRenderer = (person) => person.name;
+    personRenderer = (person, { handleClick, modifiers, query }) => <MenuItem key={person.username} onClick={handleClick} disabled={modifiers.disabled} active={modifiers.active} label={person.name} text={highlightText(person.username, query)}/>;
+    onPersonSelect = (person) => this.setState({composeData: {...this.state.composeData, to: person.username}});
+    personIsEqual = (person1, person2) => person1.username === person2.username;
+    personPredicate = (query, person) => person.username.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    updatePeople(query) {
+        if (query === "") return;
+        Users.Search(query, localStorage.getItem("token"))
+            .then(res => this.setState({recipients: res.data || []}))
+            .catch(err => toastr.error(err.toString(), `Failed to retrieve usernames like ${query}`));
+    }
 
     toggleComposeDialog = () => this.setState({composeIsOpen: !this.state.composeIsOpen && this.isAuthenticated()});
     updateComposeData = (e) => this.setState({composeData: {to: (e.target.id === "compose-to") ? e.target.value : this.state.composeData.to, subject: (e.target.id === "compose-subject") ? e.target.value : this.state.composeData.subject, message: (e.target.id === "compose-message") ? e.target.value : this.state.composeData.message, algorithm: (e.target.id.substring(0, 12) === "compose-algo") ? parseInt(e.target.value) : this.state.composeData.algorithm}});
@@ -122,8 +137,10 @@ class Messages extends React.Component {
 
                 <Dialog icon="document-share" title="Compose" isOpen={this.state.composeIsOpen} onClose={this.toggleComposeDialog.bind(this)}>
                     <div className={Classes.DIALOG_BODY}>
-                        <FormGroup label="To" labelFor="compose-to" helperText="Username to send to">
-                            <InputGroup id="compose-to" placeholder="jsmith1988" value={this.state.composeData.to} onChange={this.updateComposeData.bind(this)}/>
+                        <FormGroup label="To" labelFor="compose-to">
+                            <Suggest id="compose-to" items={this.state.recipients} inputValueRenderer={this.personValueRenderer} itemRenderer={this.personRenderer}
+                                     itemsEqual={this.personIsEqual} popoverProps={{ minimal: true }} noResults={<MenuItem disabled={true} text="No results." />}
+                                     onItemSelect={this.onPersonSelect} itemPredicate={this.personPredicate} onQueryChange={this.updatePeople.bind(this)}/>
                         </FormGroup>
                         <FormGroup label="Subject" labelFor="compose-subject">
                             <InputGroup id="compose-subject" placeholder="Hi" value={this.state.composeData.subject} onChange={this.updateComposeData.bind(this)}/>

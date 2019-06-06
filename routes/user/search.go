@@ -1,7 +1,6 @@
 package user
 
 import (
-	"fmt"
 	"github.com/akrantz01/EndOfAPUSH/database"
 	"github.com/akrantz01/EndOfAPUSH/util"
 	"github.com/jinzhu/gorm"
@@ -32,12 +31,11 @@ func Search(db *gorm.DB) func(w http.ResponseWriter, r *http.Request) {
 		// Find all users like given username
 		var users []database.User
 		db.Where("username LIKE ?", r.URL.Query().Get("username") + "%").Find(&users)
-		fmt.Println(users)
 
-		// Create username -> name map
-		response := make(map[string]string)
+		// Create array of usernames and names
+		var response []map[string]string
 		for _, user := range users {
-			response[user.Username] = user.Name
+			response = append(response, map[string]string{"name": user.Name, "username": user.Username})
 		}
 
 		util.Responses.SuccessWithData(w, response)
