@@ -1,5 +1,5 @@
 # End Of APUSH Project
-This is the code for a final project from my APUSH class in school. The product is an encrypted messaging service that also has some explanation of the different types of cryptography between 1945 and present day. It has a full user account system with built in messaging. It is written in Golang and JavaScript with the frontend using React. 
+This is the code for a final project from my APUSH class in school. As such, it is no longer being developed. The product is an encrypted messaging service that also has some explanation of the different types of cryptography between 1945 and present day. It has a full user account system with built in messaging. It is written in Golang and JavaScript with the frontend using React. 
 
 ## Configuration
 You can use either JSON or YAML as the configuration language. Example for [YAML](./config.sample.yaml), and for [JSON](./config.sample.json). Below are the defaults for each configuration value:
